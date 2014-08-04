@@ -1,0 +1,8 @@
+vendor
+build
+composer.phar
+.vagrant/
+*.lock
+composer.lock
+.tmp/
+.librarian

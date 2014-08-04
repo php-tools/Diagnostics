@@ -1,0 +1,40 @@
+{
+	"name": "php-tools/diagnostics",
+	"description": "Tools Library",
+	"keywords": [
+        "library",
+        "tools"
+    ],
+    "config": {
+        "process-timeout": 5000
+    },
+    "authors": [
+        {
+            "name": "Luis Mayta",
+            "email": "slovacus@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "homepage": "https://github.com/php-tools/Diagnostics",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "require-dev": {
+        "fzaninotto/faker": "dev-master",
+        "phpunit/phpunit": "4.1.0",
+        "phpunit/dbunit": "*",
+        "mockery/mockery": "0.9.1",
+        "phpspec/phpspec": "2.0.0",
+        "way/phpunit-wrappers": "dev-master",
+        "fabpot/php-cs-fixer": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Stdlib": "src/"
+        }
+    },
+    "config": {
+        "bin-dir": "vendor/bin/"
+    }
+}
