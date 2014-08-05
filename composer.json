@@ -18,7 +18,8 @@
     "homepage": "https://github.com/php-tools/Diagnostics",
     "license": "MIT",
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.3.3",
+        "zendframework/zenddiagnostics": "1.0.2"
     },
     "require-dev": {
         "fzaninotto/faker": "dev-master",
