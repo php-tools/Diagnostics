@@ -6,37 +6,47 @@ use ZendDiagnostics\Check\CheckInterface;
 use ZendDiagnostics\Result\Success;
 use ZendDiagnostics\Result\Failure;
 use ZendDiagnostics\Result\Warning;
+use Diagnostics\Db\Adapter;
 use \Exception;
 
-class CheckDbAdapterMySQL implements CheckInterface
+class MySQLCheck implements CheckInterface
 {
 
     protected $config;
+    protected $adapter;
+
+    const SUCCESS = "ok";
+    const FAILURE_HOST = "error";
+    const FAILURE_DATABASE = "error";
+
+    public function __construct(array $config = null )
+    {
+        $this->config = $config;
+    }
+
+    public function setAdapter(Adapter $adapter)
+    {
+        $this->adapter = $adapter;
+    }
+
+    public function getAdapter()
+    {
+        return $this->adapter;
+    }
 
     public function check()
     {
         try{
+            $this->adapter->setConfig($this->config);
 
-            if(!$this->config){
-                throw new Exception("No existe el Service config");
+            if($this->adapter->Connect()){
+                return new Success(self::SUCCESS);
             }
 
-            $link = mysql_connect($this->config['hostname'],
-                                    $this->config['username'],
-                                    $this->config['password']
-                                );
 
-            if(!$link){
-                throw new Exception("No hay conexion a la BD");
-            }
+            $error = $this->adapter->getError();
 
-            $database = mysql_select_db($this->config["database"], $link);
-
-            if(!$database){
-                throw new Exception("No Error al conectar a la BD");
-            }
-
-            return new Success("Success");
+            return new Failure($error["message"]);
 
         }catch(Exception $exc){
             return new Failure($exc->getMessage());
@@ -48,7 +58,6 @@ class CheckDbAdapterMySQL implements CheckInterface
     {
         return "Check Conexion MySQL";
     }
-
 
     public function setConfig(array $value)
     {
